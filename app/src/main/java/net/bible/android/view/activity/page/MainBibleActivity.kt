@@ -59,6 +59,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.serializer
 import net.bible.android.BibleApplication
+import net.bible.android.activity.MainActivity2
 import net.bible.android.activity.R
 import net.bible.android.control.BibleContentManager
 import net.bible.android.control.backup.BackupControl
@@ -122,6 +123,8 @@ import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 import kotlin.math.roundToInt
+import net.bible.android.activity.MainActivity
+import net.bible.android.activity.PrideAndPrejudice
 
 /** The main activity screen showing Bible text
  *
@@ -456,6 +459,7 @@ class MainBibleActivity : CustomTitlebarActivityBase() {
             }
 
             override fun onLongPress(e: MotionEvent?) {
+                Log.d("Ocean", "onLongPress")
                 startActivityForResult(Intent(this@MainBibleActivity, ChooseDocument::class.java), IntentHelper.UPDATE_SUGGESTED_DOCUMENTS_ON_FINISH)
             }
 
@@ -505,7 +509,7 @@ class MainBibleActivity : CustomTitlebarActivityBase() {
         if (drawerLayout.isDrawerVisible(GravityCompat.START) && keyCode == KeyEvent.KEYCODE_BACK) {
             return true
         }
-
+        Log.d("Ocean", "onKeyLongPress")
         //TODO make Long press Back work for screens other than main window e.g. does not work from search screen because wrong window is displayed
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             Log.d(TAG, "Back Long")
@@ -517,6 +521,14 @@ class MainBibleActivity : CustomTitlebarActivityBase() {
         }
 
         return super.onKeyLongPress(keyCode, event)
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            val intent = Intent(this, PrideAndPrejudice::class.java)
+            startActivity(intent)
+        }
+        return true
     }
 
     private fun setupToolbarButtons() {
