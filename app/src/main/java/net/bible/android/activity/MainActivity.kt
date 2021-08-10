@@ -3,6 +3,7 @@ package net.bible.android.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -17,10 +18,20 @@ class MainActivity : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
                 goToBible(view)
         }
+
+        findViewById<TextView>(R.id.pride_and_prejudice).setOnClickListener {
+
+            view -> goToPrideAndPrejudice(view)
+        }
     }
 
     fun goToBible(view: View){
         val intent = Intent(this, MainActivity2::class.java)
+        startActivity(intent)
+    }
+
+    fun goToPrideAndPrejudice(view: View){
+        val intent = Intent(this, PrideAndPrejudice::class.java)
         startActivity(intent)
     }
 }
